@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 @app.route("/search/<knn_num>/<document>")
 def search_on_elastic(knn_num, document):
+    print("Richiesta ricevuta")
     
     abstract = str(document).replace("_", " ")
     
@@ -24,7 +25,7 @@ def search_on_elastic(knn_num, document):
 
     res = elastic_client.search(index=INDEX_NAME, knn={"field": "embedding", "k":knn_num, "num_candidates": 50, "query_vector": embedded_abstract}, pretty=True)
 
-    # print(res)
+    print("Richiesta completata")
 
     results = res["hits"]["hits"]
     
