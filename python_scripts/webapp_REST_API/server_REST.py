@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from elasticsearch import Elasticsearch
 from langchain.embeddings import LlamaCppEmbeddings
 
@@ -15,9 +15,12 @@ elastic_client = Elasticsearch("http://localhost:9200")
 # REST API server start
 app = Flask(__name__)
 
-@app.route("/search/<knn_num>/<document>")
-def search_on_elastic(knn_num, document):
+@app.route("/search")   #/<knn_num>/<document>
+def search_on_elastic():
     print("Richiesta ricevuta")
+    
+    knn_num = request.args.get('knn_num')
+    document = request.args.get('document')
     
     abstract = str(document).replace("_", " ")
     
