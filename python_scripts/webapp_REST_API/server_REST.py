@@ -15,6 +15,10 @@ elastic_client = Elasticsearch("http://localhost:9200")
 # REST API server start
 app = Flask(__name__)
 
+@app.route("/")   #/<knn_num>/<document>
+def debug():
+    return "Hello world!"
+
 @app.route("/search")   #/<knn_num>/<document>
 def search_on_elastic():
     print("Richiesta ricevuta")
